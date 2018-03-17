@@ -1,0 +1,32 @@
+<?php $this->extend('block_searchable'); ?>
+
+<?php $this->block('content'); ?>
+
+<?php // $this->showTemplateVars(); ?>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>Platz</th>
+    <th>Name</th>
+    <th>Punkte</th>
+    <th>Teilnahmen</th>
+    <th>Plätze</th>
+  </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($this->result as $name => $player): ?>
+  <tr>
+    <td><?= $player['rang'] ?></td>
+    <td><?= $name ?></td>
+    <td><?= $player['punkte'] ?></td>
+    <td><?= $player['teilnahmen'] ?></td>
+    <td><?= implode(', ', $player['plaetze']) ?></td>
+  </tr>
+  <?php endforeach; ?>
+  </tbody>
+</table>
+
+
+<?php $this->endblock(); ?>
+
