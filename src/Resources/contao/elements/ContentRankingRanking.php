@@ -84,7 +84,7 @@ class ContentRankingRanking extends \ContentElement
         uasort($result, function($a, $b) { return -1*($a['punkte'] - $b['punkte']); });
 
         // Berechnung Ranglplatz (Ties berücksichtigen!)
-        // TODO
+
         $rang = 0;
         $skipraenge = 0;
         $lastpunkte = PHP_INT_MAX;
@@ -100,9 +100,12 @@ class ContentRankingRanking extends \ContentElement
             $lastpunkte = $result[$player]['punkte'];
         }
 
+        foreach ($result as $player => $playerdata) {
+            $result[$player]['plaetze_aggr'] = self::reduceArray($result[$player]['plaetze']);
+        }
+
         // Ergebnisse an das Template weiterreichen
 
-        $this->Template->tempdata = $tempdata;
         $this->Template->result = $result;
     }
 
@@ -115,8 +118,11 @@ class ContentRankingRanking extends \ContentElement
      */
     protected function getPunkte($platz, $teilnehmerzahl)
     {
+        // https://www.munich-darts-challenge.de/?pageIdx=7
+        return max(232 - (200 * ($platz/$teilnehmerzahl)), 40);
+
         // simple Dummyimplementierung (nur Debug)
-        return log(self::getFieldSize($teilnehmerzahl), 2.0)*16 + 1 - $platz;
+        // return log(self::getFieldSize($teilnehmerzahl), 2.0)*16 + 1 - $platz;
 
         // 1. Größe des "Felds" aus Anzahl der Teilnehmer, aufgerundet auf die
         // nächst höhere Zweierpotenz (Bsp.: 7 Teilnehmer => 8er Spielplan,
@@ -124,7 +130,9 @@ class ContentRankingRanking extends \ContentElement
 
         // 2. Abhängig von Feld-Größe und erreichtem $platz die Punkte vergeben
 
-        // siehe z.B. http://www.happygame.at/pages/td-challenge/spielregeln.php
+        // siehe z.B. auch
+        // https://www.munich-darts-challenge.de/?pageIdx=7
+        // http://www.happygame.at/pages/td-challenge/spielregeln.php
     }
 
     /**
@@ -132,11 +140,37 @@ class ContentRankingRanking extends \ContentElement
      * @param int $teilnehmer
      * @return float|int
      */
+    /*
     protected static function getFieldSize($teilnehmer)
     {
         // 1. Logarithmus zur Basis 2 berechnen
         // 2. wenn keine ganze Zahl, dann aufrunden (ceil())
         // 3. Als Umkehrfunktiopn zu log_2(): 2 mit dem Wert potenzieren
         return pow(2.0, ceil(log($teilnehmer, 2.0)));
+    }
+    */
+
+    /**
+     * Die List der Platzierungen sortieren und "komprimieren" ("3x2." anstelle "2.,2.,2.").
+     *
+     * @param array $data
+     * @return string
+     */
+    protected static function reduceArray($data)
+    {
+        $aggr = [];
+        foreach ($data as $value) {
+            $aggr[$value]++;
+        }
+        ksort($aggr);
+        $result = [];
+        foreach ($aggr as $k => $v) {
+            if ($v > 1) {
+                $result[] = sprintf("%s&times;%s.", $v, $k);
+            } else {
+                $result[] = sprintf("%s.", $k);
+            }
+        }
+        return implode(", ", $result);
     }
 }

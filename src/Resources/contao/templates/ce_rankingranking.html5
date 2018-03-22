@@ -2,8 +2,6 @@
 
 <?php $this->block('content'); ?>
 
-<?php // $this->showTemplateVars(); ?>
-
 <table class="table">
   <thead>
   <tr>
@@ -21,12 +19,13 @@
     <td><?= $name ?></td>
     <td><?= $player['punkte'] ?></td>
     <td><?= $player['teilnahmen'] ?></td>
-    <td><?= implode(', ', $player['plaetze']) ?></td>
+    <td><?= $player['plaetze_aggr'] ?></td>
   </tr>
   <?php endforeach; ?>
   </tbody>
 </table>
 
+<?php // $this->showTemplateVars(); ?>
 
 <?php $this->endblock(); ?>
 
