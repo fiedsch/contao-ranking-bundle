@@ -166,7 +166,7 @@ class ContentRankingRanking extends \ContentElement
         $result = [];
         foreach ($aggr as $k => $v) {
             if ($v > 1) {
-                $result[] = sprintf("%s&times;%s.", $v, $k);
+                $result[] = sprintf("<small>%d&times;</small>%d.", $v, $k);
             } else {
                 $result[] = sprintf("%s.", $k);
             }
