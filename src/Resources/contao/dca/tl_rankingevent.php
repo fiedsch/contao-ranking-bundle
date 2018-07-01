@@ -22,9 +22,10 @@ $GLOBALS['TL_DCA']['tl_rankingevent'] = [
             'panelLayout' => 'filter;search,limit',
             'headerFields' => ['name'],
             'child_record_callback' => function($row) {
-                return sprintf("<span class='%s'>%s</span>",
+                return sprintf("<span class='%s'>%s</span> %s",
                     $row['published'] === '1' ? '' : 'tl_gray',
-                    \Date::parse('d.m.Y', $row['date'])
+                    \Date::parse('d.m.Y', $row['date']),
+                    $row['published'] === '1' ? '' : '(nicht veröffentlicht)'
                 );
             }
         ],

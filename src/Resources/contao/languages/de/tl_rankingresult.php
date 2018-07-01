@@ -1,5 +1,12 @@
 <?php
 
+$GLOBALS['TL_LANG']['tl_rankingresult']['new'] = [
+    'Neues Ergebnis',
+    'Ein neues Ergebnis hinzufügen'
+];
+
+
+
 $GLOBALS['TL_LANG']['tl_rankingresult']['title_legend'] = 'Titel';
 
 $GLOBALS['TL_LANG']['tl_rankingresult']['name'] = [

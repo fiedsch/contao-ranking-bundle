@@ -1,5 +1,11 @@
 <?php
 
+$GLOBALS['TL_LANG']['tl_rankingplayer']['new'] = [
+    'Neuer Spieler',
+    'Einen neuen Spieler hinzufügen'
+];
+
+
 $GLOBALS['TL_LANG']['tl_rankingplayer']['title_legend'] = 'Titel';
 
 $GLOBALS['TL_LANG']['tl_rankingplayer']['name'] = [
