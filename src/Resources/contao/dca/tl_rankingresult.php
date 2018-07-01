@@ -1,5 +1,7 @@
 <?php
 
+$is_overview = \Contao\Input::get('do') === 'ranking.result';
+
 $GLOBALS['TL_DCA']['tl_rankingresult'] = [
     'config' => [
         'dataContainer'    => 'Table',
@@ -25,7 +27,7 @@ $GLOBALS['TL_DCA']['tl_rankingresult'] = [
             'format' => '%s.',
             'flag' => 11, // 11 == Sort ascending
             'disableGrouping' => \Input::get('do')==='ranking.ranking',
-            'panelLayout' => 'filter;search,limit',
+            'panelLayout' => $is_overview ? 'filter;search,limit' : 'limit',
             'headerFields' => ['date'],
             'child_record_callback' => function($row) {
                 // Für den Aufruf "als child records"
