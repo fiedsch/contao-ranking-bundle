@@ -17,7 +17,7 @@
   <tr>
     <td><?= $player['rang'] ?></td>
     <td><?= $name ?></td>
-    <td><?= $player['punkte'] ?></td>
+    <td><?= number_format($player['punkte'], 0) ?></td>
     <td><?= $player['teilnahmen'] ?></td>
     <td><?= $player['plaetze_aggr'] ?></td>
   </tr>
