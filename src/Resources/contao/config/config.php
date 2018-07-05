@@ -27,5 +27,5 @@ $GLOBALS['TL_CTE']['texts']['rankingranking'] = 'ContentRankingRanking';
 // Backend-CSS
 
 if (TL_MODE === 'BE') {
-    $GLOBALS['TL_CSS'][] = 'bundles/fiedschrankingbundle/backend.css';
+    $GLOBALS['TL_CSS'][] = 'bundles/fiedschranking/backend.css';
 }
