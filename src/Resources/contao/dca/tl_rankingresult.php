@@ -40,21 +40,12 @@ $GLOBALS['TL_DCA']['tl_rankingresult'] = [
             'format' => '%s. %s',
             // Für den Aufruf als "eigenständige Tabelle"
             'label_callback' => function($row) {
-    /*
-                $member = \RankingplayerModel::findById($row['name']);
-                $event = \RankingeventModel::findById($row['pid']);
-                $ranking = \RankingModel::findById($event->pid);
-                return sprintf("%s, %s: %d. %s",
-                    $ranking->name,
-                    Date::parse('d.m.Y', $event->date), $row['platz'], $member->name);
-    */
-                $member = \RankingplayerModel::findById($row['name']);
-                return sprintf("%d. %s", $row['platz'], $member->name);
+                $player = \RankingplayerModel::findById($row['name']);
+                return sprintf("%d. %s", $row['platz'], $player->name);
             },
             'group_callback' => function($group, $mode, $field, $row) {
                 $event = \RankingeventModel::findById($row['pid']);
                 $ranking = \RankingModel::findById($event->pid);
-                // return json_encode($row);
                 return sprintf('%s, %s', $ranking->name, \Contao\Date::parse('d.m.Y', $event->date));
             },
         ],
@@ -120,9 +111,13 @@ $GLOBALS['TL_DCA']['tl_rankingresult'] = [
             'search'     => false,
             'filter'     => true,
             'inputType'  => 'select',
-            'eval'       => ['doNotCopy'=>true,'tl_class' => 'w50', 'includeBlankOption' => true, 'chosen' => true],
+            'eval'       => ['doNotCopy'=>true,'tl_class' => 'w50 wizard', 'mandatory' => true, 'includeBlankOption' => true, 'chosen' => true],
+            'wizard'     => [
+                ['\Fiedsch\RankingBundle\Helper\DCAHelper', 'editPlayerWizard']
+            ],
             'foreignKey' => 'tl_rankingplayer.name',
-            'sql'        => "int(10) NOT NULL default '0'",
+            'relation'   => ['type'=>'hasOne', 'table' => 'tl_rankingplayer', 'load'=>'lazy'],
+            'sql'        => "int(10) unsigned NOT NULL default '0'",
         ],
 
         'platz' => [
