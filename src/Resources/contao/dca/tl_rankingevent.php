@@ -100,7 +100,7 @@ $GLOBALS['TL_DCA']['tl_rankingevent'] = [
             'search'    => false,
             'filter'    => true,
             'inputType' => 'text',
-            'eval'      => ['tl_class' => 'w50 widget', 'rgxp'=>'date', 'datepicker'=>true, 'maxlength' => 128],
+            'eval'      => ['tl_class' => 'w50 widget', 'mandatory' => true, 'rgxp'=>'date', 'datepicker'=>true, 'maxlength' => 128],
             'flag'      => 7, // Sort by month ascending,
             'sql'       => "varchar(11) NOT NULL default ''",
         ],

@@ -83,7 +83,7 @@ $GLOBALS['TL_DCA']['tl_rankingplayer'] = [
             'search'    => false,
             'filter'    => true,
             'inputType' => 'text',
-            'eval'      => ['tl_class' => 'w50', 'maxlength' => 128],
+            'eval'      => ['tl_class' => 'w50', 'maxlength' => 128, 'mandatory'=>true],
             'sql'       => "varchar(128) NOT NULL default ''",
         ],
 

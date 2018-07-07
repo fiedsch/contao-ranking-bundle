@@ -127,7 +127,7 @@ $GLOBALS['TL_DCA']['tl_rankingresult'] = [
             'filter'    => true,
             'flag'      => 11, // sort ascending
             'inputType' => 'text',
-            'eval'      => ['tl_class' => 'w50', 'rgxp'=>'natural', 'maxlength' => 4],
+            'eval'      => ['mandatory' => true, 'tl_class' => 'w50', 'rgxp'=>'natural', 'maxlength' => 4],
             'sql'       => "int(10) NULL",
         ],
 

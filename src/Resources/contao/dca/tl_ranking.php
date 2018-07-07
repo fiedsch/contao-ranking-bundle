@@ -89,7 +89,7 @@ $GLOBALS['TL_DCA']['tl_ranking'] = [
             'search'    => false,
             'filter'    => true,
             'inputType' => 'text',
-            'eval'      => ['tl_class' => 'long', 'maxlength' => 128],
+            'eval'      => ['tl_class' => 'long', 'maxlength' => 128, 'mandatory' => true],
             'sql'       => "varchar(128) NOT NULL default ''",
         ],
 
