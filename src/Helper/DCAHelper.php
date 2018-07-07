@@ -24,11 +24,10 @@ class DCAHelper
      */
     public static function editPlayerWizard(DataContainer $dc)
     {
-        if ($dc->value < 1) {
-            return '';
-        }
+        $result = '';
+        if ($dc->value > 0) {
         // http://edart-bayern.de-c4.localhost/contao?do=ranking.spieler&ref=PiV6JIbz
-        return
+        $result .= 
             // gewählten Spieler bearbeiten
             '<a href="contao/main.php?do=ranking.spieler&amp;act=edit&amp;id=' . $dc->value
             . '&amp;popup=1&amp;rt=' . REQUEST_TOKEN
@@ -37,8 +36,10 @@ class DCAHelper
             . specialchars(str_replace("'", "\\'", specialchars($GLOBALS['TL_LANG']['tl_spieler']['editmember'][1])))
             . '\',\'url\':this.href});return false">'
             . Image::getHtml('alias.svg', $GLOBALS['TL_LANG']['tl_spieler']['editmember'][1], 'style="vertical-align:top"')
-            . '</a>'
-            . // neuen Spieler anlegen
+            . '</a>';
+        }
+        $result .= 
+            // neuen Spieler anlegen
             // http://edart-bayern.de-c4.localhost/app_dev.php/contao?do=ranking.spieler&ref=wTYQGfF3
             '<a href="contao/main.php?do=ranking.spieler&amp;popup=1&amp;rt=' . REQUEST_TOKEN
             . '" title="' . specialchars($GLOBALS['TL_LANG']['tl_spieler']['editmember'][1]) . '"'
@@ -47,8 +48,8 @@ class DCAHelper
             . '\',\'url\':this.href});return false">'
             . Image::getHtml('new.svg', $GLOBALS['TL_LANG']['tl_spieler']['editmember'][1], 'style="vertical-align:top"')
             . '</a>'
-
-            ;
+        ;
+        return $result;
     }
 
 }
