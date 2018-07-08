@@ -38,7 +38,7 @@ class ContentRankingRanking extends \ContentElement
 
         // Rohdaten holen
         $sql = "SELECT"
-            . " re.id,rr.platz,re.date as re_date,r.name as r_name,rp.name as rp_name"
+            . " re.id,rr.platz,re.date as re_date,r.name as r_name,rp.name as rp_name,rp.gender as rp_gender"
             . " FROM tl_rankingresult rr"
             . " LEFT JOIN tl_rankingevent re ON (re.id=rr.pid)"
             . " LEFT JOIN tl_ranking r ON (r.id=re.pid)"
@@ -70,6 +70,7 @@ class ContentRankingRanking extends \ContentElement
                 $result[$playerdata['rp_name']]['punkte'] += $playerdata['punkte'];
                 $result[$playerdata['rp_name']]['teilnahmen']++;
                 $result[$playerdata['rp_name']]['plaetze'][] = $playerdata['platz'];
+                $result[$playerdata['rp_name']]['rp_gender'] = $playerdata['rp_gender'];
             }
         }
 
@@ -85,6 +86,30 @@ class ContentRankingRanking extends \ContentElement
 
         // Berechnung Ranglplatz (Ties berücksichtigen!)
 
+        // Filtern nach tl_rankingplayer.gender == 'male' oder 'female' für
+        // Damen- bzw. Herren-Ranking
+        $result_male = array_filter($result, function($element) {
+            return $element['rp_gender'] === 'male'; });
+        $result_female = array_filter($result, function($element) {
+            return $element['rp_gender'] === 'female'; });
+
+        // Ränge berechnen und Ergebnisse an das Template weiterreichen
+
+        $this->Template->result = self::computeRanks($result);
+        $this->Template->result_female = self::computeRanks($result_female);
+        $this->Template->result_male = self::computeRanks($result_male);
+
+        $this->Template->pott        = array_reduce($this->Template->result,        function($i, $el) { return $i + $el['teilnahmen']; }, 0) * \Contao\Config::get('ranking_pott_betrag');
+        $this->Template->pott_female = array_reduce($this->Template->result_female, function($i, $el) { return $i + $el['teilnahmen']; }, 0) * \Contao\Config::get('ranking_pott_betrag');
+        $this->Template->pott_male   = array_reduce($this->Template->result_male,   function($i, $el) { return $i + $el['teilnahmen']; }, 0) * \Contao\Config::get('ranking_pott_betrag');
+    }
+
+    /**
+     * @param array $result
+     * @return array
+     */
+    protected static function computeRanks(array $result)
+    {
         $rang = 0;
         $skipraenge = 0;
         $lastpunkte = PHP_INT_MAX;
@@ -103,10 +128,7 @@ class ContentRankingRanking extends \ContentElement
         foreach ($result as $player => $playerdata) {
             $result[$player]['plaetze_aggr'] = self::reduceArray($result[$player]['plaetze']);
         }
-
-        // Ergebnisse an das Template weiterreichen
-
-        $this->Template->result = $result;
+        return $result;
     }
 
     /**

@@ -12,3 +12,8 @@ $GLOBALS['TL_LANG']['tl_rankingplayer']['name'] = [
     'Name',
     'Name oder Nickname des Spielers'
 ];
+
+$GLOBALS['TL_LANG']['tl_rankingplayer']['gender'] = [
+    'Geschlecht',
+    'Bitte wählen Sie das Geschlecht.'
+];

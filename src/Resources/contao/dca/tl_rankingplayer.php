@@ -61,7 +61,7 @@ $GLOBALS['TL_DCA']['tl_rankingplayer'] = [
 
     'palettes' => [
         '__selector__' => [],
-        'default'      => '{title_legend},name',
+        'default'      => '{title_legend},name,gender',
     ], // palettes
 
     'fields' => [
@@ -86,6 +86,18 @@ $GLOBALS['TL_DCA']['tl_rankingplayer'] = [
             'eval'      => ['tl_class' => 'w50', 'maxlength' => 128, 'mandatory'=>true],
             'sql'       => "varchar(128) NOT NULL default ''",
         ],
+
+        'gender' => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_rankingplayer']['gender'],
+            'exclude'   => true,
+            'search'    => false,
+            'filter'    => true,
+            'inputType' => 'select',
+            'options' =>['male','female'],
+            'reference' => &$GLOBALS['TL_LANG']['MSC'],
+            'eval'      => ['includeBlankOption'=>true, 'tl_class' => 'w50', 'mandatory'=>true],
+            'sql'       => "varchar(32) NOT NULL default ''",
+        ]
 
     ], // fields
 

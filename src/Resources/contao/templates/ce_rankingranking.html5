@@ -2,6 +2,7 @@
 
 <?php $this->block('content'); ?>
 
+<h2>Gesamt <small>(<?= $this->Template->pott; ?> € im Pott)</small></h2>
 <table class="table">
   <thead>
   <tr>
@@ -14,6 +15,55 @@
   </thead>
   <tbody>
   <?php foreach ($this->result as $name => $player): ?>
+  <tr>
+    <td><?= $player['rang'] ?></td>
+    <td><?= $name ?></td>
+    <td><?= number_format($player['punkte'], 0) ?></td>
+    <td><?= $player['teilnahmen'] ?></td>
+    <td><?= $player['plaetze_aggr'] ?></td>
+  </tr>
+  <?php endforeach; ?>
+  </tbody>
+</table>
+
+
+<h2>Damen <small>(<?= $this->Template->pott_female; ?> € im Pott)</small></h2>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Platz</th>
+    <th>Name</th>
+    <th>Punkte</th>
+    <th>Teilnahmen</th>
+    <th>Plätze</th>
+  </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($this->result_female as $name => $player): ?>
+  <tr>
+    <td><?= $player['rang'] ?></td>
+    <td><?= $name ?></td>
+    <td><?= number_format($player['punkte'], 0) ?></td>
+    <td><?= $player['teilnahmen'] ?></td>
+    <td><?= $player['plaetze_aggr'] ?></td>
+  </tr>
+  <?php endforeach; ?>
+  </tbody>
+</table>
+
+<h2>Herren <small>(<?= $this->Template->pott_male; ?> € im Pott)</small></h2>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Platz</th>
+    <th>Name</th>
+    <th>Punkte</th>
+    <th>Teilnahmen</th>
+    <th>Plätze</th>
+  </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($this->result_male as $name => $player): ?>
   <tr>
     <td><?= $player['rang'] ?></td>
     <td><?= $name ?></td>
