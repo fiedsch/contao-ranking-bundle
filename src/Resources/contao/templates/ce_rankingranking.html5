@@ -3,6 +3,7 @@
 <?php $this->block('content'); ?>
 
 <h2>Gesamt <small>(<?= $this->Template->pott; ?> € im Pott)</small></h2>
+<div class="table-responsive">
 <table class="table">
   <thead>
   <tr>
@@ -25,9 +26,11 @@
   <?php endforeach; ?>
   </tbody>
 </table>
+</div>
 
 
 <h2>Damen <small>(<?= $this->Template->pott_female; ?> € im Pott)</small></h2>
+<div class="table-responsive">
 <table class="table">
   <thead>
   <tr>
@@ -50,8 +53,10 @@
   <?php endforeach; ?>
   </tbody>
 </table>
+</div>
 
 <h2>Herren <small>(<?= $this->Template->pott_male; ?> € im Pott)</small></h2>
+<div class="table-responsive">
 <table class="table">
   <thead>
   <tr>
@@ -74,6 +79,7 @@
   <?php endforeach; ?>
   </tbody>
 </table>
+</div>
 
 <?php // $this->showTemplateVars(); ?>
 
