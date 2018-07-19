@@ -1,12 +1,17 @@
 <?php
 
+namespace Fiedsch\RankingBundle;
+
+use Contao\ContentElement;
+use Contao\BackendTemplate;
+use Contao\Database;
 
 /**
  * Content element "Gesamt-Ranking eines Rankingturniers".
  *
  * @author Andreas Fieger <https://github.com/fiedsch>
  */
-class ContentRankingRanking extends \ContentElement
+class ContentRankingRanking extends ContentElement
 {
     /**
      * Template
@@ -18,7 +23,7 @@ class ContentRankingRanking extends \ContentElement
     public function generate()
     {
         if (TL_MODE == 'BE') {
-            $objTemplate = new \BackendTemplate('be_wildcard');
+            $objTemplate = new BackendTemplate('be_wildcard');
             $objTemplate->title = $this->headline;
 
 
@@ -45,7 +50,7 @@ class ContentRankingRanking extends \ContentElement
             . " LEFT JOIN tl_rankingplayer rp ON (rr.name=rp.id)"
             . " WHERE re.published='1'"
         ;
-        $data = \Database::getInstance()->prepare($sql)->execute();
+        $data = Database::getInstance()->prepare($sql)->execute();
         if ($data) {
             while ($data->next()) {
                 $tempdata[$data->id][] = $data->row();

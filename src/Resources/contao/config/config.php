@@ -22,7 +22,7 @@ array_insert($GLOBALS['BE_MOD'], $ligaverwaltung_index ? $ligaverwaltung_index+1
 
 // Content Elements
 
-$GLOBALS['TL_CTE']['texts']['rankingranking'] = 'ContentRankingRanking';
+$GLOBALS['TL_CTE']['texts']['rankingranking'] = 'Fiedsch\RankingBundle\ContentRankingRanking';
 
 // Backend-CSS
 

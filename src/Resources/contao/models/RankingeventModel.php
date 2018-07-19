@@ -4,7 +4,10 @@
  * @link https://github.com/fiedsch/contao-ligaverwaltung/
  * @license https://opensource.org/licenses/MIT
  */
-class RankingeventModel extends \Model
+
+namespace Contao;
+
+class RankingeventModel extends Model
 {
 
     /**
