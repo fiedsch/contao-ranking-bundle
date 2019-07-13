@@ -7,6 +7,7 @@ $GLOBALS['TL_DCA']['tl_rankingplayer'] = [
         'sql' => [
             'keys' => [
                 'id'          => 'primary',
+                'name'        => 'unique'
             ],
         ],
     ], // config
@@ -80,10 +81,10 @@ $GLOBALS['TL_DCA']['tl_rankingplayer'] = [
         'name' => [
             'label'     => &$GLOBALS['TL_LANG']['tl_rankingplayer']['name'],
             'exclude'   => true,
-            'search'    => false,
-            'filter'    => true,
+            'search'    => true,
+            'filter'    => false,
             'inputType' => 'text',
-            'eval'      => ['tl_class' => 'w50', 'maxlength' => 128, 'mandatory'=>true],
+            'eval'      => ['tl_class' => 'w50', 'maxlength' => 128, 'mandatory'=>true, 'unique' => true],
             'sql'       => "varchar(128) NOT NULL default ''",
         ],
 
