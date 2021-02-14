@@ -2,16 +2,23 @@
 
 declare(strict_types=1);
 
-/**
- * @author Andreas Fieger
+/*
+ * This file is part of fiedsch/contao-ranking-bundle.
+ *
+ * (c) 2016-2021 Andreas Fieger
+ *
+ * @package Ranking-Turniere
+ * @link https://github.com/fiedsch/contao-ranking-bundle/
+ * @license https://opensource.org/licenses/MIT
  */
+
 namespace Fiedsch\RankingBundle\ContaoManager;
 
-use Fiedsch\RankingBundle\FiedschRankingBundle;
 use Contao\CoreBundle\ContaoCoreBundle;
-use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
+use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
+use Fiedsch\RankingBundle\FiedschRankingBundle;
 
 class Plugin implements BundlePluginInterface
 {

@@ -1,9 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of fiedsch/contao-ranking-bundle.
+ *
+ * (c) 2016-2021 Andreas Fieger
+ *
+ * @package Ranking-Turniere
+ * @link https://github.com/fiedsch/contao-ranking-bundle/
+ * @license https://opensource.org/licenses/MIT
+ */
+
 namespace Fiedsch\RankingBundle;
 
-use Contao\ContentElement;
 use Contao\BackendTemplate;
+use Contao\Config;
+use Contao\ContentElement;
 use Contao\Database;
 
 /**
@@ -14,7 +27,7 @@ use Contao\Database;
 class ContentRankingRanking extends ContentElement
 {
     /**
-     * Template
+     * Template.
      *
      * @var string
      */
@@ -22,35 +35,37 @@ class ContentRankingRanking extends ContentElement
 
     public function generate()
     {
-        if (TL_MODE == 'BE') {
+        if (TL_MODE === 'BE') {
             $objTemplate = new BackendTemplate('be_wildcard');
             $objTemplate->title = $this->headline;
 
+            $objTemplate->wildcard = '### '.$GLOBALS['TL_LANG']['CTE']['rankingranking'][0].' ###';
 
-            $objTemplate->wildcard = "### " . $GLOBALS['TL_LANG']['CTE']['rankingranking'][0] . " ###";
             return $objTemplate->parse();
         }
+
         return parent::generate();
     }
 
     /**
-     * Generate the content element
+     * Generate the content element.
      */
-    public function compile()
+    public function compile(): void
     {
         $tempdata = [];
         $result = [];
 
         // Rohdaten holen
-        $sql = "SELECT"
-            . " re.id,rr.platz,re.date as re_date,r.name as r_name,rp.name as rp_name,rp.gender as rp_gender"
-            . " FROM tl_rankingresult rr"
-            . " LEFT JOIN tl_rankingevent re ON (re.id=rr.pid)"
-            . " LEFT JOIN tl_ranking r ON (r.id=re.pid)"
-            . " LEFT JOIN tl_rankingplayer rp ON (rr.name=rp.id)"
-            . " WHERE re.published='1'"
+        $sql = 'SELECT'
+            .' re.id,rr.platz,re.date as re_date,r.name as r_name,rp.name as rp_name,rp.gender as rp_gender'
+            .' FROM tl_rankingresult rr'
+            .' LEFT JOIN tl_rankingevent re ON (re.id=rr.pid)'
+            .' LEFT JOIN tl_ranking r ON (r.id=re.pid)'
+            .' LEFT JOIN tl_rankingplayer rp ON (rr.name=rp.id)'
+            ." WHERE re.published='1'"
         ;
         $data = Database::getInstance()->prepare($sql)->execute();
+
         if ($data) {
             while ($data->next()) {
                 $tempdata[$data->id][] = $data->row();
@@ -61,7 +76,7 @@ class ContentRankingRanking extends ContentElement
         foreach ($tempdata as $event => $data) {
             // Anzahl Teilnehmer
             foreach ($data as $i => $playerdata) {
-                $tempdata[$event][$i]['teilnehmerzahl'] = count($data);
+                $tempdata[$event][$i]['teilnehmerzahl'] = \count($data);
             }
             // Punkte
             foreach ($data as $i => $playerdata) {
@@ -70,10 +85,10 @@ class ContentRankingRanking extends ContentElement
         }
 
         // Aggregieren (nach Spieler)
-        foreach ($tempdata as $event => $data) {
+        foreach ($tempdata as $data) {
             foreach ($data as $playerdata) {
                 $result[$playerdata['rp_name']]['punkte'] += $playerdata['punkte'];
-                $result[$playerdata['rp_name']]['teilnahmen']++;
+                ++$result[$playerdata['rp_name']]['teilnahmen'];
                 $result[$playerdata['rp_name']]['plaetze'][] = $playerdata['platz'];
                 $result[$playerdata['rp_name']]['rp_gender'] = $playerdata['rp_gender'];
             }
@@ -87,16 +102,24 @@ class ContentRankingRanking extends ContentElement
         //   als das zweite ist."
         // (für aufsteigende Sortieruung!).
 
-        uasort($result, function($a, $b) { return -1*($a['punkte'] - $b['punkte']); });
+        uasort($result, static function ($a, $b) { return -1 * ($a['punkte'] - $b['punkte']); });
 
         // Berechnung Ranglplatz (Ties berücksichtigen!)
 
         // Filtern nach tl_rankingplayer.gender == 'male' oder 'female' für
         // Damen- bzw. Herren-Ranking
-        $result_male = array_filter($result, function($element) {
-            return $element['rp_gender'] === 'male'; });
-        $result_female = array_filter($result, function($element) {
-            return $element['rp_gender'] === 'female'; });
+        $result_male = array_filter(
+            $result,
+            static function ($element) {
+                return 'male' === $element['rp_gender'];
+            }
+        );
+        $result_female = array_filter(
+            $result,
+            static function ($element) {
+                return 'female' === $element['rp_gender'];
+            }
+        );
 
         // Ränge berechnen und Ergebnisse an das Template weiterreichen
 
@@ -104,13 +127,12 @@ class ContentRankingRanking extends ContentElement
         $this->Template->result_female = self::computeRanks($result_female);
         $this->Template->result_male = self::computeRanks($result_male);
 
-        $this->Template->pott        = array_reduce($this->Template->result,        function($i, $el) { return $i + $el['teilnahmen']; }, 0) * \Contao\Config::get('ranking_pott_betrag');
-        $this->Template->pott_female = array_reduce($this->Template->result_female, function($i, $el) { return $i + $el['teilnahmen']; }, 0) * \Contao\Config::get('ranking_pott_betrag');
-        $this->Template->pott_male   = array_reduce($this->Template->result_male,   function($i, $el) { return $i + $el['teilnahmen']; }, 0) * \Contao\Config::get('ranking_pott_betrag');
+        $this->Template->pott = array_reduce($this->Template->result, static function ($i, $el) { return $i + $el['teilnahmen']; }, 0) * Config::get('ranking_pott_betrag');
+        $this->Template->pott_female = array_reduce($this->Template->result_female, static function ($i, $el) { return $i + $el['teilnahmen']; }, 0) * Config::get('ranking_pott_betrag');
+        $this->Template->pott_male = array_reduce($this->Template->result_male, static function ($i, $el) { return $i + $el['teilnahmen']; }, 0) * Config::get('ranking_pott_betrag');
     }
 
     /**
-     * @param array $result
      * @return array
      */
     protected static function computeRanks(array $result)
@@ -118,6 +140,7 @@ class ContentRankingRanking extends ContentElement
         $rang = 0;
         $skipraenge = 0;
         $lastpunkte = PHP_INT_MAX;
+
         foreach ($result as $player => $playerdata) {
             if ($playerdata['punkte'] < $lastpunkte) {
                 $rang += $skipraenge;
@@ -125,28 +148,30 @@ class ContentRankingRanking extends ContentElement
                 $skipraenge = 0;
             } else {
                 $result[$player]['rang'] = $rang;
-                $skipraenge++;
+                ++$skipraenge;
             }
             $lastpunkte = $result[$player]['punkte'];
         }
 
-        foreach ($result as $player => $playerdata) {
+        foreach (array_keys($result) as $player) {
             $result[$player]['plaetze_aggr'] = self::reduceArray($result[$player]['plaetze']);
         }
+
         return $result;
     }
 
     /**
      * Berechnung der Punkte für erreichten $platz bei $teilnehmerzahl Teilnehmern.
      *
-     * @param integer $platz
-     * @param integer $teilnehmerzahl
-     * @return integer
+     * @param int $platz
+     * @param int $teilnehmerzahl
+     *
+     * @return int
      */
     protected function getPunkte($platz, $teilnehmerzahl)
     {
         // https://www.munich-darts-challenge.de/?pageIdx=7
-        return max(232 - (200 * ($platz/$teilnehmerzahl)), 40);
+        return max(232 - (200 * $platz / $teilnehmerzahl), 40);
 
         // simple Dummyimplementierung (nur Debug)
         // return log(self::getFieldSize($teilnehmerzahl), 2.0)*16 + 1 - $platz;
@@ -163,8 +188,10 @@ class ContentRankingRanking extends ContentElement
     }
 
     /**
-     * Größe des Teilnehmerfelds (Zweierpotenz)
-     * @param int $teilnehmer
+     * Größe des Teilnehmerfelds (Zweierpotenz).
+     *
+     * @param int $data
+     *
      * @return float|int
      */
     /*
@@ -181,23 +208,27 @@ class ContentRankingRanking extends ContentElement
      * Die List der Platzierungen sortieren und "komprimieren" ("3x2." anstelle "2.,2.,2.").
      *
      * @param array $data
+     *
      * @return string
      */
     protected static function reduceArray($data)
     {
         $aggr = [];
+
         foreach ($data as $value) {
-            $aggr[$value]++;
+            ++$aggr[$value];
         }
         ksort($aggr);
         $result = [];
+
         foreach ($aggr as $k => $v) {
             if ($v > 1) {
-                $result[] = sprintf("<small>%d&times;</small>%d.", $v, $k);
+                $result[] = sprintf('<small>%d&times;</small>%d.', $v, $k);
             } else {
-                $result[] = sprintf("%s.", $k);
+                $result[] = sprintf('%s.', $k);
             }
         }
-        return implode(", ", $result);
+
+        return implode(', ', $result);
     }
 }
