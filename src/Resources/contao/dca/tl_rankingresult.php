@@ -23,10 +23,11 @@ declare(strict_types=1);
  */
 
 use Contao\Date;
+use Contao\DataContainer;
 use Contao\Input;
-use Contao\RankingeventModel;
-use Contao\RankingModel;
-use Contao\RankingplayerModel;
+use Fiedsch\RankingBundle\Model\RankingeventModel;
+use Fiedsch\RankingBundle\Model\RankingModel;
+use Fiedsch\RankingBundle\Model\RankingplayerModel;
 
 $is_overview = 'ranking.result' === Input::get('do');
 
@@ -140,10 +141,8 @@ $GLOBALS['TL_DCA']['tl_rankingresult'] = [
             'search' => false,
             'filter' => true,
             'inputType' => 'select',
-            'eval' => ['doNotCopy' => true, 'tl_class' => 'w50 wizard', 'mandatory' => true, 'includeBlankOption' => true, 'chosen' => true],
-            'wizard' => [
-                ['\Fiedsch\RankingBundle\Helper\DCAHelper', 'editPlayerWizard'],
-            ],
+            'eval' => ['doNotCopy' => true, 'tl_class' => 'w50', 'mandatory' => true, 'includeBlankOption' => true, 'chosen' => true],
+            'xlabel' => [['\Fiedsch\RankingBundle\Helper\DCAHelper', 'editPlayerWizard']],
             'foreignKey' => 'tl_rankingplayer.name',
             'relation' => ['type' => 'hasOne', 'table' => 'tl_rankingplayer', 'load' => 'lazy'],
             'sql' => "int(10) unsigned NOT NULL default '0'",

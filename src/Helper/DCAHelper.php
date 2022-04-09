@@ -16,6 +16,7 @@ namespace Fiedsch\RankingBundle\Helper;
 
 use Contao\DataContainer;
 use Contao\Image;
+use Contao\StringUtil;
 
 class DCAHelper
 {
@@ -25,7 +26,7 @@ class DCAHelper
      *
      * @return string
      */
-    public static function editPlayerWizard(DataContainer $dc)
+    public static function editPlayerWizard(DataContainer $dc): string
     {
         $result = '';
 
@@ -35,9 +36,9 @@ class DCAHelper
             // gewählten Spieler bearbeiten
             '<a href="contao/main.php?do=ranking.spieler&amp;act=edit&amp;id='.$dc->value
             .'&amp;popup=1&amp;rt='.REQUEST_TOKEN
-            .'" title="'.specialchars($GLOBALS['TL_LANG']['tl_spieler']['editmember'][1] ?? '').'"'
+            .'" title="'.StringUtil::specialchars($GLOBALS['TL_LANG']['tl_spieler']['editmember'][1] ?? '').'"'
             .' style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\''
-            .specialchars(str_replace("'", "\\'", specialchars($GLOBALS['TL_LANG']['tl_spieler']['editmember'][1] ?? '')))
+            .StringUtil::specialchars(str_replace("'", "\\'", specialchars($GLOBALS['TL_LANG']['tl_spieler']['editmember'][1] ?? '')))
             .'\',\'url\':this.href});return false">'
             .Image::getHtml('alias.svg', $GLOBALS['TL_LANG']['tl_spieler']['editmember'][1] ?? '', 'style="vertical-align:top"')
             .'</a>';

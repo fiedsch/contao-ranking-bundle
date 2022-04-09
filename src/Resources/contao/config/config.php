@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 $ligaverwaltung_index = array_search('liga', array_keys($GLOBALS['BE_MOD']), true);
 
-array_insert($GLOBALS['BE_MOD'], $ligaverwaltung_index ? $ligaverwaltung_index + 1 : 1,
+\Contao\ArrayUtil::arrayInsert($GLOBALS['BE_MOD'], $ligaverwaltung_index ? $ligaverwaltung_index + 1 : 1,
         [
             'ranking' => [
                 'ranking.spieler' => [
@@ -32,10 +32,16 @@ array_insert($GLOBALS['BE_MOD'], $ligaverwaltung_index ? $ligaverwaltung_index +
 
 // Content Elements
 
-$GLOBALS['TL_CTE']['texts']['rankingranking'] = 'Fiedsch\RankingBundle\ContentRankingRanking';
+$GLOBALS['TL_CTE']['texts']['rankingranking'] = \Fiedsch\RankingBundle\Controller\ContentElement\RankingRanking::class;
 
 // Backend-CSS
 
 if (TL_MODE === 'BE') {
     $GLOBALS['TL_CSS'][] = 'bundles/fiedschranking/backend.css';
 }
+
+
+$GLOBALS['TL_MODELS']['tl_ranking']       = \Fiedsch\RankingBundle\Model\RankingModel::class;
+$GLOBALS['TL_MODELS']['tl_rankingevent']  = \Fiedsch\RankingBundle\Model\RankingeventModel::class;
+$GLOBALS['TL_MODELS']['tl_rankingplayer'] = \Fiedsch\RankingBundle\Model\RankingplayerModel::class;
+$GLOBALS['TL_MODELS']['tl_rankingresult'] = \Fiedsch\RankingBundle\Model\RankingresultModel::class;

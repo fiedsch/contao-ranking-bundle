@@ -1,0 +1,5 @@
+services:
+
+  fiedsch_ranking.punktehelper:
+    class: Fiedsch\RankingBundle\Helper\PunkteHelper
+    public: true

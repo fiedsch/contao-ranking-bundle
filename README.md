@@ -1,7 +1,5 @@
 # Ranking Turniere
 
-**Work in Progress, not yet ready to use!**
-
 Eine Turnierserie, die
 
 * an verschiedenen Tagen

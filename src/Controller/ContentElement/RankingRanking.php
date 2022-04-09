@@ -12,19 +12,23 @@ declare(strict_types=1);
  * @license https://opensource.org/licenses/MIT
  */
 
-namespace Fiedsch\RankingBundle;
+namespace Fiedsch\RankingBundle\Controller\ContentElement;
 
 use Contao\BackendTemplate;
 use Contao\Config;
 use Contao\ContentElement;
 use Contao\Database;
+use Contao\System;
+use Fiedsch\RankingBundle\Helper\PunkeHelperInterface;
+
+use function count;
 
 /**
  * Content element "Gesamt-Ranking eines Rankingturniers".
  *
  * @author Andreas Fieger <https://github.com/fiedsch>
  */
-class ContentRankingRanking extends ContentElement
+class RankingRanking extends ContentElement
 {
     /**
      * Template.
@@ -64,7 +68,7 @@ class ContentRankingRanking extends ContentElement
             .' LEFT JOIN tl_rankingplayer rp ON (rr.name=rp.id)'
             ." WHERE re.published='1'"
         ;
-        $data = Database::getInstance()->prepare($sql)->execute();
+        $data = Database::getInstance()->prepare($sql)->execute(); // TODO use Doctrine\DBAL\Connection
 
         if ($data) {
             while ($data->next()) {
@@ -76,7 +80,7 @@ class ContentRankingRanking extends ContentElement
         foreach ($tempdata as $event => $data) {
             // Anzahl Teilnehmer
             foreach ($data as $i => $playerdata) {
-                $tempdata[$event][$i]['teilnehmerzahl'] = \count($data);
+                $tempdata[$event][$i]['teilnehmerzahl'] = count($data);
             }
             // Punkte
             foreach ($data as $i => $playerdata) {
@@ -170,21 +174,9 @@ class ContentRankingRanking extends ContentElement
      */
     protected function getPunkte($platz, $teilnehmerzahl)
     {
-        // https://www.munich-darts-challenge.de/?pageIdx=7
-        return max(232 - (200 * $platz / $teilnehmerzahl), 40);
-
-        // simple Dummyimplementierung (nur Debug)
-        // return log(self::getFieldSize($teilnehmerzahl), 2.0)*16 + 1 - $platz;
-
-        // 1. Größe des "Felds" aus Anzahl der Teilnehmer, aufgerundet auf die
-        // nächst höhere Zweierpotenz (Bsp.: 7 Teilnehmer => 8er Spielplan,
-        // 8 Teilnehmer => 8er Spielplan, 9 Teilnehmer => 16er Spielplan, usw.).
-
-        // 2. Abhängig von Feld-Größe und erreichtem $platz die Punkte vergeben
-
-        // siehe z.B. auch
-        // https://www.munich-darts-challenge.de/?pageIdx=7
-        // http://www.happygame.at/pages/td-challenge/spielregeln.php
+        /** @var PunkeHelperInterface $punkteHelper */
+        $punkteHelper = System::getContainer()->get('fiedsch_ranking.punktehelper');
+        return $punkteHelper->getPunkte($platz, $teilnehmerzahl);
     }
 
     /**

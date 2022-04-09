@@ -12,14 +12,16 @@ declare(strict_types=1);
  * @license https://opensource.org/licenses/MIT
  */
 
-namespace Contao;
+namespace Fiedsch\RankingBundle\Model;
 
-class RankingplayerModel extends Model
+use Contao\Model;
+
+class RankingresultModel extends Model
 {
     /**
      * Table name.
      *
      * @var string
      */
-    protected static $strTable = 'tl_rankingplayer';
+    protected static $strTable = 'tl_rankingresult';
 }
