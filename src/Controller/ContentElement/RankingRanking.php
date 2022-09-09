@@ -92,7 +92,7 @@ class RankingRanking extends ContentElement
         foreach ($tempdata as $data) {
             foreach ($data as $playerdata) {
                 $result[$playerdata['rp_name']]['punkte'] += $playerdata['punkte'];
-                ++$result[$playerdata['rp_name']]['teilnahmen'];
+                $result[$playerdata['rp_name']]['teilnahmen'] = ($result[$playerdata['rp_name']]['teilnahmen'] ?? 0)+1;
                 $result[$playerdata['rp_name']]['plaetze'][] = $playerdata['platz'];
                 $result[$playerdata['rp_name']]['rp_gender'] = $playerdata['rp_gender'];
             }
