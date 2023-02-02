@@ -62,7 +62,7 @@ $GLOBALS['TL_DCA']['tl_rankingresult'] = [
                 // Für den Aufruf "als child records"
                 $member = RankingplayerModel::findById($row['name']);
 
-                return sprintf('%d. %s', $row['platz'], $member->name);
+                return sprintf('%d. %s', $row['platz'], $member?->name);
             },
         ],
         'label' => [
@@ -145,7 +145,7 @@ $GLOBALS['TL_DCA']['tl_rankingresult'] = [
             'xlabel' => [['\Fiedsch\RankingBundle\Helper\DCAHelper', 'editPlayerWizard']],
             'foreignKey' => 'tl_rankingplayer.name',
             'relation' => ['type' => 'hasOne', 'table' => 'tl_rankingplayer', 'load' => 'lazy'],
-            'sql' => "int(10) unsigned NOT NULL default '0'",
+            'sql' => "int(10) unsigned NULL",
         ],
 
         'platz' => [
