@@ -13,6 +13,7 @@ declare(strict_types=1);
  */
 
 use Contao\Date;
+use Contao\DC_Table;
 
 /*
  * This file is part of fiedsch/contao-ranking-bundle.
@@ -26,7 +27,7 @@ use Contao\Date;
 
 $GLOBALS['TL_DCA']['tl_rankingevent'] = [
     'config' => [
-        'dataContainer' => 'Table',
+        'dataContainer' => DC_Table::class,
         'enableVersioning' => true,
         'ptable' => 'tl_ranking',
         'ctable' => ['tl_rankingresult'],

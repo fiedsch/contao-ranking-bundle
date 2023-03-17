@@ -12,9 +12,11 @@ declare(strict_types=1);
  * @license https://opensource.org/licenses/MIT
  */
 
+use Contao\DC_Table;
+
 $GLOBALS['TL_DCA']['tl_ranking'] = [
     'config' => [
-        'dataContainer' => 'Table',
+        'dataContainer' => DC_Table::class,
         'enableVersioning' => true,
         'ctable' => ['tl_rankingevent'],
         'sql' => [

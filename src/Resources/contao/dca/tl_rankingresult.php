@@ -23,7 +23,7 @@ declare(strict_types=1);
  */
 
 use Contao\Date;
-use Contao\DataContainer;
+use Contao\DC_Table;
 use Contao\Input;
 use Fiedsch\RankingBundle\Model\RankingeventModel;
 use Fiedsch\RankingBundle\Model\RankingModel;
@@ -33,7 +33,7 @@ $is_overview = 'ranking.result' === Input::get('do');
 
 $GLOBALS['TL_DCA']['tl_rankingresult'] = [
     'config' => [
-        'dataContainer' => 'Table',
+        'dataContainer' => DC_Table::class,
         'enableVersioning' => true,
         'ptable' => 'tl_rankingevent',
         'sql' => [
