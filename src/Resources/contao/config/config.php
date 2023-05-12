@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use Contao\System;
+use Symfony\Component\HttpFoundation\Request;
+
 /*
  * This file is part of fiedsch/contao-ranking-bundle.
  *
@@ -36,7 +39,9 @@ $GLOBALS['TL_CTE']['texts']['rankingranking'] = \Fiedsch\RankingBundle\Controlle
 
 // Backend-CSS
 
-if (TL_MODE === 'BE') {
+if (System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest(
+    System::getContainer()->get('request_stack')->getCurrentRequest() ?? Request::create('')
+)) {
     $GLOBALS['TL_CSS'][] = 'bundles/fiedschranking/backend.css';
 }
 
