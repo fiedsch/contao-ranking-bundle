@@ -94,8 +94,15 @@ class RankingRanking extends ContentElement
         // Aggregieren (nach Spieler)
         foreach ($tempdata as $data) {
             foreach ($data as $playerdata) {
+                if (!isset($result[$playerdata['rp_name']])) {
+                    $result[$playerdata['rp_name']] = [
+                        'punkte' => 0,
+                        'teilnahmen' => 0,
+                        'plaetze' => [],
+                    ];
+                }
                 $result[$playerdata['rp_name']]['punkte'] += $playerdata['punkte'];
-                $result[$playerdata['rp_name']]['teilnahmen'] = ($result[$playerdata['rp_name']]['teilnahmen'] ?? 0)+1;
+                $result[$playerdata['rp_name']]['teilnahmen'] += 1;
                 $result[$playerdata['rp_name']]['plaetze'][] = $playerdata['platz'];
                 $result[$playerdata['rp_name']]['rp_gender'] = $playerdata['rp_gender'];
             }
@@ -211,7 +218,7 @@ class RankingRanking extends ContentElement
         $aggr = [];
 
         foreach ($data as $value) {
-            ++$aggr[$value];
+            $aggr[$value] = ($aggr[$value] ?? 0) + 1;
         }
         ksort($aggr);
         $result = [];
