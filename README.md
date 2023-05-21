@@ -72,6 +72,6 @@ tL_rankingplayer: id, name
     Autocomplete, das aber auch vollkommen neue Namen zulässt. Neue Namen könnten wir
     dann automatisch in der DB als neue `tl_rankingplayer`-Records anlegen. Bei Duplikaten
     müssten dann Datenkorrekturen stattfinden: (1) doppelten "Rankingplayer" löschen und
-    (2) die id im "Rankingresult" nei setzen. Das sollte mittels filtern und
+    (2) die id im "Rankingresult" einsetzen. Das sollte mittels filtern und
     "mehrere bearbeiten" relativ zügig gehen. (Dazu evtl. die `tl_rankingresult` losgelöst
     von der hierarchischen Datenstruktur als eigene Backend-Menüpunkt anbieten?
