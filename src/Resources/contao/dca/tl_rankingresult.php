@@ -72,7 +72,7 @@ $GLOBALS['TL_DCA']['tl_rankingresult'] = [
             'label_callback' => static function ($row) {
                 $player = RankingplayerModel::findById($row['name']);
 
-                return sprintf('%d. %s', $row['platz'], $player->name);
+                return sprintf('%d. %s', $row['platz'], $player?->name);
             },
             'group_callback' => static function ($group, $mode, $field, $row) {
                 $event = RankingeventModel::findById($row['pid']);

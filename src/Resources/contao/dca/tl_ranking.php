@@ -48,36 +48,11 @@ $GLOBALS['TL_DCA']['tl_ranking'] = [
             ],
         ],
         'operations' => [
-            'edit' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_ranking']['edit'],
-                'href' => 'table=tl_rankingevent',
-                'icon' => 'edit.svg',
-            ],
-
-            'editheader' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_ranking']['editheader'],
-                'href' => 'act=edit',
-                'icon' => 'header.svg',
-            ],
-
-            'copy' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_ranking']['copy'],
-                'href' => 'act=copy',
-                'icon' => 'copy.svg',
-            ],
-
-            'delete' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_ranking']['delete'],
-                'href' => 'act=delete',
-                'icon' => 'delete.svg',
-                'attributes' => 'onclick="if (!confirm(\''.$GLOBALS['TL_LANG']['MSC']['deleteConfirm'].'\')) return false; Backend.getScrollOffset();"',
-            ],
-
-            'show' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_ranking']['show'],
-                'href' => 'act=show',
-                'icon' => 'show.svg',
-            ],
+            'edit',
+            'children',
+            'copy',
+            'delete',
+            'show',
         ], // operations
     ], // list
 

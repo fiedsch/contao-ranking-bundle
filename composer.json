@@ -1,7 +1,7 @@
 {
   "name": "fiedsch/ranking-bundle",
   "type": "contao-bundle",
-  "description": "Contao 4 Bundle: Rankingturniere",
+  "description": "Contao Bundle: Rankingturniere",
   "license": "MIT",
   "authors": [
     {
@@ -11,8 +11,8 @@
     }
   ],
   "require": {
-    "php": "^8.0",
-    "contao/core-bundle": "^4.13 || ^5.1"
+    "php": "^8.2",
+    "contao/core-bundle": "^5.3"
   },
   "autoload": {
     "psr-4": {
