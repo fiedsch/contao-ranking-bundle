@@ -40,7 +40,7 @@ class DCAHelper
             .'&amp;popup=1&amp;rt='.$requestToken
             .'" title="'.StringUtil::specialchars($GLOBALS['TL_LANG']['tl_spieler']['editmember'][1] ?? '').'"'
             .' style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\''
-            .StringUtil::specialchars(str_replace("'", "\\'", specialchars($GLOBALS['TL_LANG']['tl_spieler']['editmember'][1] ?? '')))
+            .StringUtil::specialchars(str_replace("'", "\\'", StringUtil::specialchars($GLOBALS['TL_LANG']['tl_spieler']['editmember'][1] ?? '')))
             .'\',\'url\':this.href});return false">'
             .Image::getHtml('alias.svg', $GLOBALS['TL_LANG']['tl_spieler']['editmember'][1] ?? '', 'style="vertical-align:top"')
             .'</a>';
