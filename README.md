@@ -35,8 +35,9 @@ tL_rankingplayer: id, name
 ### `tl_member` vs `tl_rankingplayer`
 
 * Die Verwendung von `tl_member` erscheint zunächst naheliegend.
-* ABER: Bei Integration auf einer Site, die auch den Contao-Ligamanager verwendet tauchen die
-  nur für Rankinga angelegten Mitglieder an vielen Stellen zur Auswahl auf, wo sie keinen
+* ABER: Bei Integration auf einer Site, die auch das 
+  [contao-ligaverwaltung-bundle](https://github.com/fiedsch/contao-ligaverwaltung-bundle) verwendet, 
+ tauchen die nur für Rankinga angelegten Mitglieder an vielen Stellen zur Auswahl auf, wo sie keinen
   Sinn ergeben. Zudem werden wesentlich weniger Datenfelder benötigt, als sie in `tl_member`
   bereitgestellt werden.
 * Die Verwendung einer eigenen Tabelle (`tl_rankingplayer`), die extra für diesen Zweck
@@ -49,7 +50,7 @@ tL_rankingplayer: id, name
 ## Datenerfassung
 
 * neues "Rankingevent" anlegen (entspricht eingegangenem Ergebnisbericht)
-* Für jede Zeile einen neuen "Rankingplayer" als Kindelement angelegten
+* Für jede Zeile einen neues "Ranking-Rseult" als Kindelement anlegen
   * Spieler auswählen
   * Platz eintragen (die Punkte werden automatisch berechnet, da sie sich aus einem
     festen Punkteschlüssel ergeben).
