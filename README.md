@@ -1,9 +1,9 @@
 # Ranking Turniere
 
-Eine Turnierserie, die
+Verwaltung von Ergebnissen einer Turnierserie, die
 
 * an verschiedenen Tagen
-* an verschiedenen Orten (Kneipen)
+* an verschiedenen Orten
 * mit jeweils unterscheidlichen Teilnehmerzahlen
 
 gespielt wird. Eine solches Veranstaltung bezeichnen wir als "Ranking-Event".
@@ -16,7 +16,7 @@ die ein Spieler bei seinen Teilnahmen an Ranking-Events erzielt hat.
 Abhängig von der der erreichten Platzierung und der Teilnehmerzahl beim jeweiligen
 Ranking-Event werden unterschiedliche Punkte vergeben.
 
-* TODO Punkteschlüssel
+* TODO Punkteschlüssel dokumentieren und konfigurierbar machen
 
 ## Datenstrukturen
 
