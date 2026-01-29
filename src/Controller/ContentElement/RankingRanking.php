@@ -70,12 +70,17 @@ class RankingRanking extends ContentElement
             .' LEFT JOIN tl_ranking r ON (r.id=re.pid)'
             .' LEFT JOIN tl_rankingplayer rp ON (rr.name=rp.id)'
             ." WHERE re.published='1'"
+            ." AND rr.platz>0" // Fehleingaben im Backend rausfiltern
         ;
         $data = Database::getInstance()->prepare($sql)->execute(); // TODO use Doctrine\DBAL\Connection
 
         if ($data) {
             while ($data->next()) {
-                $tempdata[$data->id][] = $data->row();
+                $row = $data->row();
+                // Pflichtfelder um Fehleingaben im Backend herauszufiltern (Platz > 0 oben im SQL-Query)
+                if (!empty($row['rp_name'])) {
+                    $tempdata[$data->id][] = $data->row();
+                }
             }
         }
 
