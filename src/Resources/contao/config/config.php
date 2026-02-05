@@ -20,13 +20,13 @@ $ligaverwaltung_index = array_search('liga', array_keys($GLOBALS['BE_MOD']), tru
 \Contao\ArrayUtil::arrayInsert($GLOBALS['BE_MOD'], $ligaverwaltung_index ? $ligaverwaltung_index + 1 : 1,
         [
             'ranking' => [
-                'ranking.spieler' => [
+                'ranking_spieler' => [
                     'tables' => ['tl_rankingplayer'],
                 ],
-                'ranking.ranking' => [
+                'ranking_ranking' => [
                     'tables' => ['tl_ranking', 'tl_rankingevent', 'tl_rankingresult'],
                 ],
-                'ranking.result' => [
+                'ranking_result' => [
                     'tables' => ['tl_rankingresult'],
                 ],
             ],

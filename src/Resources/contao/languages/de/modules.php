@@ -14,16 +14,16 @@ declare(strict_types=1);
 
 $GLOBALS['TL_LANG']['MOD']['ranking'] = 'Rankings';
 
-$GLOBALS['TL_LANG']['MOD']['ranking.spieler'] = [
-    'Spieler',
+$GLOBALS['TL_LANG']['MOD']['ranking_spieler'] = [
+    'Ranking Spieler',
     'Verwaltung von Spielern für Rankingturniere',
 ];
 
-$GLOBALS['TL_LANG']['MOD']['ranking.ranking'] = [
+$GLOBALS['TL_LANG']['MOD']['ranking_ranking'] = [
     'Rankingturniere',
     'Verwaltung von Rankingturnieren',
 ];
-$GLOBALS['TL_LANG']['MOD']['ranking.result'] = [
+$GLOBALS['TL_LANG']['MOD']['ranking_result'] = [
     'Rankingergebnisse (alle)',
     'Zugriff auf alle Rankingergebnisse',
 ];
