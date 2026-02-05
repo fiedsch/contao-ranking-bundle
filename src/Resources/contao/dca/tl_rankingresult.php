@@ -157,6 +157,24 @@ $GLOBALS['TL_DCA']['tl_rankingresult'] = [
             'inputType' => 'text',
             'eval' => ['mandatory' => true, 'tl_class' => 'w50', 'rgxp' => 'natural', /*'rgxp' => 'custom', 'customRgxp' => '/^[1-9]\d*$/',*/ 'maxlength' => 4],
             'sql' => "int(10) unsigned NOT NULL default '0'",
+            'default' => function(\Contao\DataContainer $dc) {
+                $id = $dc?->id;
+                if (null === $id) {
+                    //$request = \Contao\System::getContainer()->get('request_stack')->getCurrentRequest();
+                    //dd($request);
+                    $id = \Contao\Input::get('pid');
+                }
+                if (!$id) { return 1; }
+                /** @var \Doctrine\DBAL\Connection $connection */
+                $connection = \contao\System::getContainer()->get('database_connection');
+                /** @var \Doctrine\DBAL\Statement $statement */
+                $statement = $connection->prepare("SELECT MAX(platz)+1 AS nextplatz FROM tl_rankingresult WHERE pid=?");
+                $statement->bindValue(1, $id);
+                /** @var \Doctrine\DBAL\Result $result */
+                $result = $statement->executeQuery();
+                $row = $result->fetchAssociative();
+                return \max((int)$row['nextplatz'], 1);
+            },
         ],
     ], // fields
 ];
