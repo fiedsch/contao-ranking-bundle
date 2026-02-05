@@ -1,5 +1,11 @@
 services:
+  _defaults:
+    autoconfigure: true
 
   fiedsch_ranking.punktehelper:
     class: Fiedsch\RankingBundle\Helper\PunkteHelper
     public: true
+
+  Fiedsch\RankingBundle\EventListener\DataContainer\RankingresultOnLoadCallbackListener:
+    arguments:
+      - '@database_connection'
