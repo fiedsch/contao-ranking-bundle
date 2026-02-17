@@ -28,7 +28,37 @@
 </table>
 </div>
 
+<?php if ($this->result_other ?? []): ?>
+<h2>Divers <small>(<?= $this->pott_divers; ?> € im Pott)</small></h2>
+<div class="table-responsive">
+<table class="table">
+  <thead>
+  <tr>
+    <th>Platz</th>
+    <th>Name</th>
+    <th>Punkte</th>
+    <th>Teilnahmen</th>
+    <th>Plätze</th>
+  </tr>
+  </thead>
+  <tbody>
 
+  <?php foreach ($this->result_other ?? [] as $name => $player): ?>
+  <tr>
+    <td><?= $player['rang'] ?></td>
+    <td><?= $name ?></td>
+    <td><?= number_format($player['punkte'], 0, ',', '.') ?></td>
+    <td><?= $player['teilnahmen'] ?></td>
+    <td><?= $player['plaetze_aggr'] ?></td>
+  </tr>
+  <?php endforeach; ?>
+  </tbody>
+</table>
+</div>
+<?php endif; ?>
+
+
+<?php if ($this->result_female ?? []): ?>
 <h2>Damen <small>(<?= $this->pott_female; ?> € im Pott)</small></h2>
 <div class="table-responsive">
 <table class="table">
@@ -42,7 +72,7 @@
   </tr>
   </thead>
   <tbody>
-  <?php foreach ($this->result_female as $name => $player): ?>
+  <?php foreach ($this->result_female ?? [] as $name => $player): ?>
   <tr>
     <td><?= $player['rang'] ?></td>
     <td><?= $name ?></td>
@@ -54,7 +84,10 @@
   </tbody>
 </table>
 </div>
+<?php endif; ?>
 
+
+<?php if ($this->result_male ?? []): ?>
 <h2>Herren <small>(<?= $this->pott_male; ?> € im Pott)</small></h2>
 <div class="table-responsive">
 <table class="table">
@@ -68,7 +101,7 @@
   </tr>
   </thead>
   <tbody>
-  <?php foreach ($this->result_male as $name => $player): ?>
+  <?php foreach ($this->result_male ?? [] as $name => $player): ?>
   <tr>
     <td><?= $player['rang'] ?></td>
     <td><?= $name ?></td>
@@ -80,6 +113,7 @@
   </tbody>
 </table>
 </div>
+<?php endif; ?>
 
 <?php // $this->showTemplateVars(); ?>
 

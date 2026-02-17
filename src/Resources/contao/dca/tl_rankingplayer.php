@@ -106,7 +106,7 @@ $GLOBALS['TL_DCA']['tl_rankingplayer'] = [
             'search' => false,
             'filter' => true,
             'inputType' => 'select',
-            'options' => ['male', 'female'],
+            'options' => ['male', 'female', 'other'],
             'reference' => &$GLOBALS['TL_LANG']['MSC'],
             'eval' => ['includeBlankOption' => true, 'tl_class' => 'w50', 'mandatory' => true],
             'sql' => "varchar(32) NOT NULL default ''",

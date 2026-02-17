@@ -126,8 +126,8 @@ class RankingRanking extends ContentElement
 
         // Berechnung Ranglplatz (Ties berücksichtigen!)
 
-        // Filtern nach tl_rankingplayer.gender == 'male' oder 'female' für
-        // Damen- bzw. Herren-Ranking
+        // Filtern nach tl_rankingplayer.gender == 'male', 'female' oder 'other' für
+        // Damen-, Herren- und Divers-Rankings
         $result_male = array_filter(
             $result,
             static function ($element) {
@@ -140,16 +140,24 @@ class RankingRanking extends ContentElement
                 return 'female' === $element['rp_gender'];
             }
         );
+        $result_other = array_filter(
+            $result,
+            static function ($element) {
+                return 'other' === $element['rp_gender'];
+            }
+        );
 
         // Ränge berechnen und Ergebnisse an das Template weiterreichen
 
         $this->Template->result = self::computeRanks($result);
         $this->Template->result_female = self::computeRanks($result_female);
         $this->Template->result_male = self::computeRanks($result_male);
+        $this->Template->result_other = self::computeRanks($result_other);
 
         $this->Template->pott = array_reduce($this->Template->result, static function ($i, $el) { return $i + $el['teilnahmen']; }, 0) * Config::get('ranking_pott_betrag');
         $this->Template->pott_female = array_reduce($this->Template->result_female, static function ($i, $el) { return $i + $el['teilnahmen']; }, 0) * Config::get('ranking_pott_betrag');
         $this->Template->pott_male = array_reduce($this->Template->result_male, static function ($i, $el) { return $i + $el['teilnahmen']; }, 0) * Config::get('ranking_pott_betrag');
+        $this->Template->pott_other = array_reduce($this->Template->result_other, static function ($i, $el) { return $i + $el['teilnahmen']; }, 0) * Config::get('ranking_pott_betrag');
     }
 
     protected static function computeRanks(array $result): array
