@@ -72,6 +72,7 @@ $GLOBALS['TL_DCA']['tl_rankingevent'] = [
             'copy',
             'delete',
             'show',
+            'toggle'
         ], // operations
     ], // list
 
@@ -106,6 +107,7 @@ $GLOBALS['TL_DCA']['tl_rankingevent'] = [
 
         'published' => [
             'label' => &$GLOBALS['TL_LANG']['tl_rankingevent']['published'],
+            'toggle' => true,
             'exclude' => true,
             'search' => false,
             'filter' => true,
