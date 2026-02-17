@@ -24,8 +24,6 @@ class DCAHelper
     /**
      * Button um das zum RankingResult gehörigen RankingPlayer in einem Modal-Window
      * bearbeiten zu können ('wizard' in tl_rankingresult).
-     *
-     * @return string
      */
     public static function editPlayerWizard(DataContainer $dc): string
     {

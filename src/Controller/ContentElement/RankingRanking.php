@@ -38,6 +38,7 @@ class RankingRanking extends ContentElement
      */
     protected $strTemplate = 'ce_rankingranking';
 
+    /** @noinspection PhpMissingReturnTypeInspection */
     public function generate()
     {
         if (System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest(
@@ -151,10 +152,7 @@ class RankingRanking extends ContentElement
         $this->Template->pott_male = array_reduce($this->Template->result_male, static function ($i, $el) { return $i + $el['teilnahmen']; }, 0) * Config::get('ranking_pott_betrag');
     }
 
-    /**
-     * @return array
-     */
-    protected static function computeRanks(array $result)
+    protected static function computeRanks(array $result): array
     {
         $rang = 0;
         $skipraenge = 0;
@@ -187,7 +185,7 @@ class RankingRanking extends ContentElement
      *
      * @return int
      */
-    protected function getPunkte($platz, $teilnehmerzahl)
+    protected function getPunkte(int $platz, int $teilnehmerzahl)
     {
         /** @var PunkeHelperInterface $punkteHelper */
         $punkteHelper = System::getContainer()->get('fiedsch_ranking.punktehelper');
@@ -218,7 +216,7 @@ class RankingRanking extends ContentElement
      *
      * @return string
      */
-    protected static function reduceArray($data)
+    protected static function reduceArray(array $data)
     {
         $aggr = [];
 
