@@ -19,7 +19,11 @@ readonly class RankingresultOnLoadCallbackListener
      */
     public function __invoke(string $table, int $insertId, array $fields, DataContainer $dc): void
     {
-        $newValue = $this->connection->executeQuery('SELECT MAX(platz)+1 FROM tl_rankingresult WHERE pid = ?', [$fields['pid']])->fetchOne();
+        if (!isset($fields['pid'])) {
+            $newValue = 1;
+        } else {
+            $newValue = $this->connection->executeQuery('SELECT MAX(platz)+1 FROM tl_rankingresult WHERE pid = ?', [$fields['pid']])->fetchOne();
+        }
         $this->connection->executeStatement('UPDATE tl_rankingresult SET platz = ? WHERE id = ?', [$newValue, $insertId]);
     }
 
