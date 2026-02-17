@@ -28,8 +28,7 @@ use Contao\Input;
 use Fiedsch\RankingBundle\Model\RankingeventModel;
 use Fiedsch\RankingBundle\Model\RankingModel;
 use Fiedsch\RankingBundle\Model\RankingplayerModel;
-
-$is_overview = 'ranking.result' === Input::get('do');
+use Fiedsch\RankingBundle\Helper\DCAHelper;
 
 $GLOBALS['TL_DCA']['tl_rankingresult'] = [
     'config' => [
@@ -42,21 +41,15 @@ $GLOBALS['TL_DCA']['tl_rankingresult'] = [
                 'pid,name' => 'unique',
             ],
         ],
-        // wenn wir nicht im Mode "display child records" aufgerufen wurden ist
-        // der "add"-Button sinnlos, da nicht klar ist, zu welcher 'pid' hinzugefügt
-        // werden soll.
-        'closed' => 'ranking.result' === Input::get('do'),
     ], // config
 
     'list' => [
         'sorting' => [
-            // Für den Aufruf "als child records" (4) vs "als eigenständige Tabelle (eigener Menüpunkt)" (1)
-            'mode' => 'ranking.ranking' === Input::get('do') ? 4 : 1, // 4 Displays the child records of a parent record
+            'mode' => DC_Table::MODE_PARENT,
             'fields' => ['pid', 'platz'],
             'format' => '%s.',
-            'flag' => 11, // 11 == Sort ascending
-            'disableGrouping' => 'ranking.ranking' === Input::get('do'),
-            'panelLayout' => $is_overview ? 'filter;search,limit' : 'limit',
+            'flag' => DC_Table::SORT_ASC,
+            'panelLayout' => 'limit',
             'headerFields' => ['date'],
             'child_record_callback' => static function ($row) {
                 // Für den Aufruf "als child records"
@@ -142,7 +135,7 @@ $GLOBALS['TL_DCA']['tl_rankingresult'] = [
             'filter' => true,
             'inputType' => 'select',
             'eval' => ['doNotCopy' => true, 'tl_class' => 'w50', 'mandatory' => true, 'includeBlankOption' => true, 'chosen' => true],
-            'xlabel' => [['\Fiedsch\RankingBundle\Helper\DCAHelper', 'editPlayerWizard']],
+            'xlabel' => [[DCAHelper::class, 'editPlayerWizard']],
             'foreignKey' => 'tl_rankingplayer.name',
             'relation' => ['type' => 'hasOne', 'table' => 'tl_rankingplayer', 'load' => 'lazy'],
             'sql' => "int(10) unsigned NULL",
@@ -160,11 +153,3 @@ $GLOBALS['TL_DCA']['tl_rankingresult'] = [
         ],
     ], // fields
 ];
-
-// wenn wir nicht im Mode "display child records" aufgerufen wurden ist
-// der "add"-Button sinnlos, da nicht klar ist, zu welcher 'pid' hinzugefügt
-// werden soll. Daher oben 'closed' => false. Der 'copy'-Button ist aus dem
-// gleichen Grund unsinnnig:
-if ('ranking.result' === Input::get('do')) {
-    unset($GLOBALS['TL_DCA']['tl_rankingresult']['list']['operations']['copy']);
-}

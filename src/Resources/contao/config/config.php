@@ -32,9 +32,6 @@ ArrayUtil::arrayInsert($GLOBALS['BE_MOD'], $ligaverwaltung_index ? $ligaverwaltu
                 'ranking_ranking' => [
                     'tables' => ['tl_ranking', 'tl_rankingevent', 'tl_rankingresult'],
                 ],
-                'ranking_result' => [
-                    'tables' => ['tl_rankingresult'],
-                ],
             ],
         ]
 );

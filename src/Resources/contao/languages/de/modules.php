@@ -23,7 +23,3 @@ $GLOBALS['TL_LANG']['MOD']['ranking_ranking'] = [
     'Rankingturniere',
     'Verwaltung von Rankingturnieren',
 ];
-$GLOBALS['TL_LANG']['MOD']['ranking_result'] = [
-    'Rankingergebnisse (alle)',
-    'Zugriff auf alle Rankingergebnisse',
-];
