@@ -119,7 +119,7 @@ $GLOBALS['TL_DCA']['tl_rankingresult'] = [
 
     'palettes' => [
         '__selector__' => [],
-        'default' => '{title_legend},name,platz',
+        'default' => '{title_legend},platz,name',
     ], // palettes
 
     'fields' => [
