@@ -31,10 +31,10 @@ class DCAHelper
         $requestToken = System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue();
 
         if ($dc->value > 0) {
-            // http://edart-bayern.de-c4.localhost/contao?do=ranking.spieler&ref=PiV6JIbz
+            // http://edart-bayern.de-c4.localhost/contao?do=ranking_spieler&ref=PiV6JIbz
             $result .=
             // gewählten Spieler bearbeiten
-            '<a href="contao/?do=ranking.spieler&amp;act=edit&amp;id='.$dc->value
+            '<a href="contao/?do=ranking_spieler&amp;act=edit&amp;id='.$dc->value
             .'&amp;popup=1&amp;rt='.$requestToken
             .'" title="'.StringUtil::specialchars($GLOBALS['TL_LANG']['tl_spieler']['editmember'][1] ?? '').'"'
             .' style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\''
@@ -46,8 +46,8 @@ class DCAHelper
         $requestToken = System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue();
         $result .=
             // neuen Spieler anlegen
-            // http://edart-bayern.de-c4.localhost/app_dev.php/contao?do=ranking.spieler&ref=wTYQGfF3
-            '<a href="contao/?do=ranking.spieler&amp;popup=1&amp;rt='.$requestToken
+            // http://edart-bayern.de-c4.localhost/app_dev.php/contao?do=ranking_spieler&ref=wTYQGfF3
+            '<a href="contao/?do=ranking_spieler&amp;popup=1&amp;rt='.$requestToken
             .'" title="'.StringUtil::specialchars($GLOBALS['TL_LANG']['tl_spieler']['editmember'][1] ?? '').'"'
             .' style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\''
             .StringUtil::specialchars(str_replace("'", "\\'", StringUtil::specialchars($GLOBALS['TL_LANG']['tl_spieler']['editmember'][1] ?? '')))
