@@ -41,10 +41,10 @@ $GLOBALS['TL_DCA']['tl_rankingevent'] = [
 
     'list' => [
         'sorting' => [
-            'mode' => 4, // 4 Displays the child records of a parent record
+            'mode' => DC_Table::MODE_PARENT,
             'fields' => ['date'],
-            'flag' => 1, // 1 == Sort by initial letter ascending
             'panelLayout' => 'filter;search,limit',
+            'flag' => DC_Table::SORT_MONTH_DESC,
             'headerFields' => ['name'],
             'child_record_callback' => static function ($row) {
                 return sprintf("<span class='%s'>%s</span> %s",
@@ -101,7 +101,7 @@ $GLOBALS['TL_DCA']['tl_rankingevent'] = [
             'filter' => true,
             'inputType' => 'text',
             'eval' => ['tl_class' => 'w50 widget', 'mandatory' => true, 'rgxp' => 'date', 'datepicker' => true, 'maxlength' => 128],
-            'flag' => 7, // Sort by month ascending,
+            'flag' => DC_Table::SORT_MONTH_DESC,
             'sql' => "varchar(11) NOT NULL default ''",
         ],
 
