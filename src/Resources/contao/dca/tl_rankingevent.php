@@ -53,7 +53,7 @@ $GLOBALS['TL_DCA']['tl_rankingevent'] = [
                     '1' === $row['published'] ? '' : '(nicht veröffentlicht)'
                 );
             },
-            'defaultSearchField' => 'date' // wir würden hier das formatierte data (ein timestamp) benötigen
+            // 'defaultSearchField' => 'date' // wir würden hier das formatierte data (ein timestamp) benötigen
 
         ],
         'label' => [
