@@ -57,6 +57,7 @@ $GLOBALS['TL_DCA']['tl_rankingresult'] = [
 
                 return sprintf('%d. %s', $row['platz'], $member?->name);
             },
+            // 'defaultSearchField' => 'name' // hilft uns nicht: name ist nur die ID des tl_rankingplayer records
         ],
         'label' => [
             'fields' => ['platz', 'name:tl_rankingplayer.name'],

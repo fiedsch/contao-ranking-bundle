@@ -32,6 +32,7 @@ $GLOBALS['TL_DCA']['tl_rankingplayer'] = [
             'fields' => ['name'],
             'flag' => 1, // 1 == Sort by initial letter ascending
             'panelLayout' => 'filter;search,limit',
+            'defaultSearchField' => 'name',
         ],
         'label' => [
             'fields' => ['name'],
