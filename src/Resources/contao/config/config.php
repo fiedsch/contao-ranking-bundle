@@ -21,9 +21,9 @@ use Symfony\Component\HttpFoundation\Request;
  * @license https://opensource.org/licenses/MIT
  */
 
-$ligaverwaltung_index = array_search('liga', array_keys($GLOBALS['BE_MOD']), true);
+$accounts_index = array_search('accounts', array_keys($GLOBALS['BE_MOD']), true);
 
-ArrayUtil::arrayInsert($GLOBALS['BE_MOD'], $ligaverwaltung_index ? $ligaverwaltung_index + 1 : 1,
+ArrayUtil::arrayInsert($GLOBALS['BE_MOD'], $accounts_index +  1,
         [
             'ranking' => [
                 'ranking_spieler' => [
