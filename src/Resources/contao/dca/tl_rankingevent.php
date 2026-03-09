@@ -53,7 +53,7 @@ $GLOBALS['TL_DCA']['tl_rankingevent'] = [
                     '1' === $row['published'] ? '' : '(nicht veröffentlicht)'
                 );
             },
-            // 'defaultSearchField' => 'date' // wir würden hier das formatierte data (ein timestamp) benötigen
+             'defaultSearchField' => 'date' // wir würden hier das formatierte data (ein timestamp) benötigen
 
         ],
         'label' => [
@@ -85,14 +85,12 @@ $GLOBALS['TL_DCA']['tl_rankingevent'] = [
 
     'fields' => [
         'id' => [
-            'sql' => 'int(10) unsigned NOT NULL auto_increment',
+            'sql' => ['type' => 'integer', 'unsigned' => true, 'autoincrement' => true],
         ],
-
-        'pid' => [
-            'sql' => "int(10) unsigned NOT NULL default '0'",
-        ],
-
         'tstamp' => [
+            'sql' => ['type' => 'integer', 'unsigned' => true, 'default' => 0],
+        ],
+        'pid' => [
             'sql' => "int(10) unsigned NOT NULL default '0'",
         ],
 
@@ -104,7 +102,7 @@ $GLOBALS['TL_DCA']['tl_rankingevent'] = [
             'inputType' => 'text',
             'eval' => ['tl_class' => 'w50 widget', 'mandatory' => true, 'rgxp' => 'date', 'datepicker' => true, 'maxlength' => 128],
             'flag' => DC_Table::SORT_MONTH_DESC,
-            'sql' => "varchar(11) NOT NULL default ''",
+            'sql' => ['type' => 'string', 'length' => 11, 'default' => ''],
         ],
 
         'published' => [

@@ -81,13 +81,12 @@ $GLOBALS['TL_DCA']['tl_rankingplayer'] = [
 
     'fields' => [
         'id' => [
-            'sql' => 'int(10) unsigned NOT NULL auto_increment',
-        ],
-
-        'pid' => [
-            'sql' => "int(10) unsigned NOT NULL default '0'",
+            'sql' => ['type' => 'integer', 'unsigned' => true, 'autoincrement' => true],
         ],
         'tstamp' => [
+            'sql' => ['type' => 'integer', 'unsigned' => true, 'default' => 0],
+        ],
+        'pid' => [
             'sql' => "int(10) unsigned NOT NULL default '0'",
         ],
 
@@ -98,7 +97,7 @@ $GLOBALS['TL_DCA']['tl_rankingplayer'] = [
             'filter' => false,
             'inputType' => 'text',
             'eval' => ['tl_class' => 'w50', 'maxlength' => 128, 'mandatory' => true, 'unique' => true],
-            'sql' => "varchar(128) default NULL",
+            'sql' => ['type' => 'string', 'length' => 128, 'default' => null, 'notnull' => false],
         ],
 
         'gender' => [
@@ -110,7 +109,7 @@ $GLOBALS['TL_DCA']['tl_rankingplayer'] = [
             'options' => ['male', 'female', 'other'],
             'reference' => &$GLOBALS['TL_LANG']['MSC'],
             'eval' => ['includeBlankOption' => true, 'tl_class' => 'w50', 'mandatory' => true],
-            'sql' => "varchar(32) NOT NULL default ''",
+            'sql' => ['type' => 'string', 'length' => 32, 'default' => ''],
         ],
     ], // fields
 ];

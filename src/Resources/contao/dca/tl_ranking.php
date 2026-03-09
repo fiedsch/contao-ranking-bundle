@@ -64,13 +64,11 @@ $GLOBALS['TL_DCA']['tl_ranking'] = [
 
     'fields' => [
         'id' => [
-            'sql' => 'int(10) unsigned NOT NULL auto_increment',
+            'sql' => ['type' => 'integer', 'unsigned' => true, 'autoincrement' => true],
         ],
-
         'tstamp' => [
-            'sql' => "int(10) unsigned NOT NULL default '0'",
+            'sql' => ['type' => 'integer', 'unsigned' => true, 'default' => 0],
         ],
-
         'name' => [
             'label' => &$GLOBALS['TL_LANG']['tl_ranking']['name'],
             'exclude' => true,
@@ -78,7 +76,7 @@ $GLOBALS['TL_DCA']['tl_ranking'] = [
             'filter' => true,
             'inputType' => 'text',
             'eval' => ['tl_class' => 'long', 'maxlength' => 128, 'mandatory' => true],
-            'sql' => "varchar(128) NOT NULL default ''",
+            'sql' => ['type' => 'string', 'length' => 128, 'default' => ''],
         ],
     ], // fields
 ];
